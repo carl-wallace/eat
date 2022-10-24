@@ -21,7 +21,7 @@
 ; JSON does not have.
 ;
 ; Nested-Token is used in the Detached-EAT-Bundle definition.
-Nested-Token = JSON-Selector
+; Nested-Token = JSON-Selector
 
 $JSON-Selector-Type /= "JWT" / "CBOR" / "BUNDLE" / "DIGEST"
 $JSON-Selector-Value /= JWT-Message /
@@ -46,7 +46,7 @@ CBOR-Token-Inside-JSON-Token = base64-url-text
 ; is a peer with the claims in the token, but not a claim, only a
 ; map/object to hold all the submodules.
 ;
-$$Claims-Set-Claims //= (submods-label => { + text => Submodule })
+; $$Claims-Set-Claims //= (submods-label => { + text => Submodule })
 
 
 ; A submodule can be:
@@ -58,4 +58,4 @@ $$Claims-Set-Claims //= (submods-label => { + text => Submodule })
 ; - The digest of a detached Claims-Set (encoded the same as
 ;   the enclosing token)
 ;
-Submodule = Claims-Set / JSON-Selector
+JSON-Submodule = Claims-Set / JSON-Selector

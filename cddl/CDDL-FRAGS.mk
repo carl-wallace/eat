@@ -8,6 +8,10 @@
 # and common to JSON and CBOR. This is original normative CDDL that is
 # defined by EAT.
 
+COMMON_CDDL_FRAGS += eat-cbor.cddl
+COMMON_CDDL_FRAGS += eat-json.cddl
+COMMON_CDDL_FRAGS += submods-cbor.cddl
+COMMON_CDDL_FRAGS += submods-json.cddl
 COMMON_CDDL_FRAGS += common-types.cddl
 COMMON_CDDL_FRAGS += nonce.cddl
 COMMON_CDDL_FRAGS += ueid.cddl
@@ -45,18 +49,25 @@ DOCUMENT_COMMON_CDDL_FRAGS = $(COMMON_CDDL_FRAGS)
 # definitions.
 
 COMMON_EXTERNAL_CDDL_FRAGS = external/claims-set.cddl
+COMMON_EXTERNAL_CDDL_FRAGS += external/oid-stub.cddl
+COMMON_EXTERNAL_CDDL_FRAGS += external/cwt.cddl
+COMMON_EXTERNAL_CDDL_FRAGS += external/concise-swid-tag.cddl
+COMMON_EXTERNAL_CDDL_FRAGS += external/coswid-tag-stub.cddl
+COMMON_EXTERNAL_CDDL_FRAGS += external/cose-stub.cddl
+COMMON_EXTERNAL_CDDL_FRAGS += external/draft-ietf-suit-manifest.cddl
+COMMON_EXTERNAL_CDDL_FRAGS += external/jwt.cddl
 
 
 # This is normative CDDL defined by EAT that is CBOR-specific
 
-CBOR_SPECIFIC_CDDL_FRAGS += eat-cbor.cddl
-CBOR_SPECIFIC_CDDL_FRAGS += submods-cbor.cddl
+# CBOR_SPECIFIC_CDDL_FRAGS += eat-cbor.cddl
+# CBOR_SPECIFIC_CDDL_FRAGS += submods-cbor.cddl
 
 
 # This is normative CDDL defined by EAT that is JSON-specific
 
-JSON_SPECIFIC_CDDL_FRAGS += eat-json.cddl
-JSON_SPECIFIC_CDDL_FRAGS += submods-json.cddl
+# JSON_SPECIFIC_CDDL_FRAGS += eat-json.cddl
+# JSON_SPECIFIC_CDDL_FRAGS += submods-json.cddl
 
 
 # CDDL that is CBOR-specific that is a reference or replication of
@@ -84,8 +95,8 @@ JSON_EXTERNAL_CDDL_FRAGS += external/oid-stub.cddl
 # The CDDL used for validating CBOR starting with a payload. Note The
 # start of this CDDL is a Claims-Set.
 
-CBOR_PAYLOAD_VALIDATION_CDDL_FRAGS += $(COMMON_EXTERNAL_CDDL_FRAGS)
 CBOR_PAYLOAD_VALIDATION_CDDL_FRAGS += $(COMMON_CDDL_FRAGS)
+CBOR_PAYLOAD_VALIDATION_CDDL_FRAGS += $(COMMON_EXTERNAL_CDDL_FRAGS)
 CBOR_PAYLOAD_VALIDATION_CDDL_FRAGS += $(CBOR_SPECIFIC_CDDL_FRAGS)
 CBOR_PAYLOAD_VALIDATION_CDDL_FRAGS += $(CBOR_EXTERNAL_CDDL_FRAGS)
 

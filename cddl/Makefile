@@ -44,49 +44,53 @@ $(CBOR_PAYLOAD_VALIDATION_CDDL): $(CBOR_PAYLOAD_VALIDATION_CDDL_FRAGS)
 		( echo "; ==== $$f ====" ; cat $$f ; echo ) ; \
 	done > $@
 
-$(CBOR_TOKEN_VALIDATION_CDDL): $(CBOR_TOKEN_VALIDATION_CDDL_FRAGS)
-	@for f in $^ ; do \
-		( cat $$f ; echo ) ; \
-	done > $@
+# $(CBOR_TOKEN_VALIDATION_CDDL): $(CBOR_TOKEN_VALIDATION_CDDL_FRAGS)
+# 	@for f in $^ ; do \
+# 		( cat $$f ; echo ) ; \
+# 	done > $@
 
 # The sed script JSON-CDDL.sed removes some things that don't work
 # in CDDL for JSON, ".cbor" and "~" for example
-$(JSON_TOKEN_VALIDATION_CDDL): $(JSON_TOKEN_VALIDATION_CDDL_FRAGS)
-	@for f in $^ ; do \
-		( echo "; ==== $$f ====" ; sed -f JSON-CDDL.sed $$f ; echo ) ; \
-	done > $@
+# $(JSON_TOKEN_VALIDATION_CDDL): $(JSON_TOKEN_VALIDATION_CDDL_FRAGS)
+# 	@for f in $^ ; do \
+# 		( echo "; ==== $$f ====" ; sed -f JSON-CDDL.sed $$f ; echo ) ; \
+# 	done > $@
 
 
 # The sed script JSON-CDDL.sed removes some things that don't work
 # in CDDL for JSON, ".cbor" and "~" for example
-$(JSON_PAYLOAD_VALIDATION_CDDL): $(JSON_PAYLOAD_VALIDATION_CDDL_FRAGS)
-	@for f in $^ ; do \
-		( echo "; ==== $$f ====" ; sed -f JSON-CDDL.sed $$f ; echo ) ; \
-	done > $@
+# $(JSON_PAYLOAD_VALIDATION_CDDL): $(JSON_PAYLOAD_VALIDATION_CDDL_FRAGS)
+# 	@for f in $^ ; do \
+# 		( echo "; ==== $$f ====" ; sed -f JSON-CDDL.sed $$f ; echo ) ; \
+# 	done > $@
 
 
 # ---- Actually run the validation
 payload-examples: $(CBOR_PAYLOAD_VALIDATION_CDDL) $(CBOR_PAYLOAD_EXAMPLES)
 	@for f in $(CBOR_PAYLOAD_EXAMPLES); do \
 		echo ">> validating $$f" ; \
+		echo "$(cddl) $< validate $$f" ; \
 		$(cddl) $< validate $$f ; \
 	done
 
-token-examples: $(CBOR_TOKEN_VALIDATION_CDDL) $(CBOR_TOKEN_EXAMPLES)
+token-examples: $(CBOR_PAYLOAD_VALIDATION_CDDL) $(CBOR_TOKEN_EXAMPLES)
 	@for f in $(CBOR_TOKEN_EXAMPLES); do \
 		echo ">> validating $$f" ; \
+		echo "$(cddl) $< validate $$f" ; \
 		$(cddl) $< validate $$f ; \
 	done
 
-json-payload-examples: $(JSON_PAYLOAD_VALIDATION_CDDL) $(JSON_PAYLOAD_EXAMPLES)
+json-payload-examples: $(CBOR_PAYLOAD_VALIDATION_CDDL) $(JSON_PAYLOAD_EXAMPLES)
 	@for f in $(JSON_PAYLOAD_EXAMPLES); do \
 		echo ">> validating $$f" ; \
+		echo "$(cddl) $< validate $$f" ; \
 		$(cddl) $< validate $$f ; \
 	done
 
-json-token-examples: $(JSON_TOKEN_VALIDATION_CDDL) $(JSON_TOKEN_EXAMPLES)
+json-token-examples: $(CBOR_PAYLOAD_VALIDATION_CDDL) $(JSON_TOKEN_EXAMPLES)
 	@for f in $(JSON_TOKEN_EXAMPLES); do \
 		echo ">> validating $$f" ; \
+		echo "$(cddl) $< validate $$f" ; \
 		$(cddl) $< validate $$f ; \
 	done
 
